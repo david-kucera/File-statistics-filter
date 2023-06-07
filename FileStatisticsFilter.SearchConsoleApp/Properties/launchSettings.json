@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FileStatisticsFilter.SearchConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "--input \"C:\\Windows\" --output windows.csv --recursive"
+    }
+  }
+}

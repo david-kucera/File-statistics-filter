@@ -1,0 +1,102 @@
+﻿<Window x:Class="FileStatisticsFilter.WpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileStatisticsFilter.WpfApp"
+        mc:Ignorable="d"
+        Title="File Statistics" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Column="0" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Height="25" Width="50" Margin="5" Content="Open..." Click="Open"></Button>
+
+                <WrapPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                    <Label Content="Directory:" Margin="5" VerticalAlignment="Center"></Label>
+                    <ComboBox Name="Directories" Margin="0,5,0,5" MinWidth="80" MaxWidth="200" VerticalAlignment="Center" SelectionChanged="DirectoryChanged"></ComboBox>
+                    <CheckBox Name="IncludeSubdirectories" Margin="5" VerticalAlignment="Center" Content="Include subdirectiories" IsChecked="True" Click="IncludeSubdirectoriesChanged"/>
+                </WrapPanel>
+
+            </Grid>
+            
+            <DataGrid Name="DataGrid" Grid.Row="1" Margin="5" Padding="5" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="File name" MinWidth="100" Binding="{Binding Path=FileNameWithoutExtention}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Directory" MinWidth="100" Binding="{Binding Path=Directory}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Size" MinWidth="80" Binding="{Binding Path=SizeReadable}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Created time" MinWidth="100" Binding="{Binding Path=CreatedTime}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Modified time" MinWidth="100" Binding="{Binding Path=ModifiedTime}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Read only" MinWidth="100" Binding="{Binding Path=IsReadOnly}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <GroupBox Grid.Column="1" Header="Statistics" HorizontalAlignment="Right" Margin="5" Padding="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Column="0" Grid.Row="0" Content="Files:"></Label>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Directories:"></Label>
+                    <Label Grid.Column="0" Grid.Row="2" Content="Total size:"></Label>
+                    <Label Grid.Column="0" Grid.Row="3" Content="Created time (oldest):"></Label>
+                    <Label Grid.Column="0" Grid.Row="4" Content="Created time (newest):"></Label>
+                    <Label Grid.Column="0" Grid.Row="5" Content="Modified time (oldest):"></Label>
+                    <Label Grid.Column="0" Grid.Row="6" Content="Modified time (newest):"></Label>
+                    <Label Grid.Column="0" Grid.Row="7" Content="Readonly files:"></Label>
+
+                    <Label Name="FilesCount" Grid.Column="1" Grid.Row="0" Content="0 / 0"></Label>
+                    <Label Name="DirectoriesCount" Grid.Column="1" Grid.Row="1" Content="0 / 0"></Label>
+                    <Label Name="TotalSizeCount" Grid.Column="1" Grid.Row="2" Content="0"></Label>
+                    <Label Name="CreatedTimeOldest" Grid.Column="1" Grid.Row="3" Content="0"></Label>
+                    <Label Name="CreatedTimeNewest" Grid.Column="1" Grid.Row="4" Content="0"></Label>
+                    <Label Name="ModifiedTimeOldest" Grid.Column="1" Grid.Row="5" Content="0"></Label>
+                    <Label Name="ModifiedTimeNewest" Grid.Column="1" Grid.Row="6" Content="0"></Label>
+                    <Label Name="ReadonlyFilesCount" Grid.Column="1" Grid.Row="7" Content="0"></Label>
+                </Grid>
+
+                <DataGrid Name="DataGridStats" Grid.Row="1" Margin="5" Padding="5" Background="White" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Extension" Binding="{Binding Path=Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Count" Binding="{Binding Path=Count}" SortDirection="Descending"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Total size" Binding="{Binding Path=TotalSize}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </GroupBox>
+
+    </Grid>
+</Window>
